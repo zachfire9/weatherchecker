@@ -11,16 +11,16 @@
     </head>
 
     <body ng-app="weatherApp">
-      <div ng-controller="weatherController">
-        <form name="weatherForm" novalidate>
-            Zip Code: <input type="text" name="zipcode" ng-model="zipcode" autocomplete="off" required>
-            <br>
-            <button ng-click="check(zipcode)" ng-disabled="weatherForm.zipcode.$invalid">
-              Check Weather
-            </button>
-        </form>
-        <h2>{{title}}</h2>
-        <div ng-bind-html="description"></div>
+        <div ng-controller="weatherController">
+            <form name="weatherForm" novalidate>
+                Zip Code: <input type="text" name="zipcode" ng-model="zipcode" autocomplete="off" required>
+                <br>
+                <button ng-click="check(zipcode)" ng-disabled="weatherForm.zipcode.$invalid">
+                Check Weather
+                </button>
+                </form>
+            <h2>{{title}}</h2>
+            <div ng-bind-html="description"></div>
       </div>
 
         <script>
@@ -28,6 +28,10 @@
             app.controller('weatherController', function($scope, $http, $sce) {
 
                 $scope.check = function(zipcode) {
+                    getWeather(zipcode);
+                }
+
+                function getWeather(zipcode) {
                     $http.get("/weather.php?zipcode=" + zipcode)
                     .success(function(response) {
                         if (response.error) {
