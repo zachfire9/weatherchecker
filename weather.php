@@ -45,9 +45,15 @@ class Weather
     {
         $item = $response->query->results->channel->item;
 
+        $description = $item->description;
+        $expression  = '/<a.+>Full Forecast at Yahoo! Weather<\/a><br\/><br\/>/i';
+        $description = preg_replace($expression, '', $description);
+        $expression  = '/\(provided by.+<\/a>\)<br\/>/i';
+        $description = preg_replace($expression, '', $description);
+
         $responseFormatted = array(
             'title' => $item->title,
-            'description' => $item->description,
+            'description' => $description,
         );
 
         return $responseFormatted;
