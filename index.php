@@ -13,7 +13,10 @@
     <body ng-app="weatherApp">
         <div ng-controller="weatherController">
             <form name="weatherForm" novalidate>
-                Zip Code: <input type="text" name="zipcode" ng-model="zipcode" autocomplete="off" required>
+                Zip Code: <input type="text" name="zipcode" ng-model="zipcode" ng-minlength="5" autocomplete="off" required>
+                <span ng-show="weatherForm.zipcode.$error.minlength"style="color:red" >
+                    Zip Code is required.
+                </span>
                 <br>
                 <button ng-click="check(zipcode)" ng-disabled="weatherForm.zipcode.$invalid">
                 Check Weather
