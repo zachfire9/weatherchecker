@@ -53,7 +53,7 @@ class Weather
 
         $responseFormatted = array(
             'title' => $item->title,
-            'description' => $description,
+            'description' => htmlspecialchars($description),
         );
 
         return $responseFormatted;

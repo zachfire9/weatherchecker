@@ -38,9 +38,22 @@
                             $scope.title = response.error;
                         } else {
                             $scope.title = response.title;
-                            $scope.description = $sce.trustAsHtml(response.description);
+                            description = htmlspecialcharsdecode(response.description);
+                            $scope.description = $sce.trustAsHtml(description);
                         }
                     });
+                }
+
+                function htmlspecialcharsdecode(str) {
+                    if (typeof(str) == "string") {
+                        str = str.replace(/&gt;/ig, ">");
+                        str = str.replace(/&lt;/ig, "<");
+                        str = str.replace(/&#039;/g, "'");
+                        str = str.replace(/&quot;/ig, '"');
+                        str = str.replace(/&amp;/ig, '&');
+                    }
+
+                    return str;
                 }
             });
         </script>
